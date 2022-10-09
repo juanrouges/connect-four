@@ -52,11 +52,11 @@ function makeHtmlBoard() {
 
   // TODO: add comment for this code
   // Loop trhu the size of board height
-  for (var y = 0; y < HEIGHT; y++) {
+  for (let y = 0; y < HEIGHT; y++) {
     // Create table row el
     const row = document.createElement("tr");
     // Loop thru the size of board width
-    for (var x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       // Create table data cell 
       const cell = document.createElement("td");
       // Add id attribute with y and x indexes as value
@@ -88,13 +88,14 @@ function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
   const piece = document.createElement('div');
   piece.classList.add('piece', `p${currPlayer}`);
+  // NOTE. I was initially using selectQuery
   document.getElementById(`${y}-${x}`).append(piece);
 }
 
 /** endGame: announce game end */
 
 function endGame(msg) {
-  // TODO: pop up alert message
+  window.alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -121,10 +122,16 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  if (board.every((v) => !v)) {
+    return endGame(`This game is a tie`);
+  };
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+
+  // ASK ABOUT THIS!!!!
   currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
+  // currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -147,18 +154,18 @@ function checkForWin() {
 
   // TODO: read and understand this code. Add comments to help you.
 
-  for (var y = 0; y < HEIGHT; y++) {
-    for (var x = 0; x < WIDTH; x++) {
-      var horiz = [
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      const horiz = [
         [y, x], [y, x + 1], [y, x + 2], [y, x + 3]
       ];
-      var vert = [
+      const vert = [
         [y, x], [y + 1, x], [y + 2, x], [y + 3, x]
       ];
-      var diagDR = [
+      const diagDR = [
         [y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]
       ];
-      var diagDL = [
+      const diagDL = [
         [y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]
       ];
 
